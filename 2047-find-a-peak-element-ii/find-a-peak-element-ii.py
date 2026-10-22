@@ -1,18 +1,26 @@
+
 class Solution:
-    def findPeakGrid(self, mat):
-        m, n = len(mat), len(mat[0])
-        low, high = 0, m - 1
+    def findPeakGrid(self, mat: list[list[int]]) -> list[int]:
+        m = len(mat)
+        n = len(mat[0])
 
+        low=0
+        high=n-1
         while low <= high:
-            mid = (low + high) // 2
-            col = max(range(n), key=lambda j: mat[mid][j])
+            mid=(low+high)//2
+            max_row =0
+            for i in range(m):
+                if mat[i][mid]>mat[max_row][mid]:
+                    max_row=i
 
-            up = mat[mid - 1][col] if mid > 0 else -1
-            down = mat[mid + 1][col] if mid < m - 1 else -1
+            left=mat[max_row][mid - 1] if mid>0 else -1
+            right = mat[max_row][mid + 1] if mid<n-1 else -1
 
-            if mat[mid][col] > up and mat[mid][col] > down:
-                return [mid, col]
-            elif up > mat[mid][col]:
-                high = mid - 1
+            if mat[max_row][mid] > left and mat[max_row][mid] > right:
+                return [max_row, mid]
+            elif left > mat[max_row][mid]:
+                high=mid-1
             else:
-                low = mid + 1
+                low=mid+1
+
+        return [-1,-1]
