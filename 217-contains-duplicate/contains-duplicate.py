@@ -1,10 +1,10 @@
 class Solution:
     def containsDuplicate(self, nums: List[int]) -> bool:
-        nhash={}
+        hashh={}
         for i in range(len(nums)):
-            nhash[nums[i]]=i
+            hashh[nums[i]]=i
         for i in range(len(nums)):
-            check=nhash[nums[i]]
-            if nums[i] in nhash and i!=check:
+            check=hashh.get(nums[i],0)
+            if check!=0 and check!=i:
                 return True
         return False
